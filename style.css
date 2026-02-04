@@ -139,3 +139,130 @@ footer{
 @media (max-width: 520px){
   .countdown{ grid-template-columns: repeat(2, 1fr); }
 }
+
+
+
+/* ===== INTRO TRANSITION ===== */
+.intro{
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(900px 500px at 50% 20%, rgba(255,211,106,0.18), transparent 60%),
+    linear-gradient(160deg, rgba(11,16,32,0.96), rgba(23,11,43,0.96));
+  backdrop-filter: blur(8px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.intro-hide{
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+.intro-inner{
+  width: min(720px, 92vw);
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+  text-align: center;
+}
+
+.intro-title{
+  margin: 10px 0 6px;
+  font-size: clamp(30px, 4.4vw, 52px);
+  line-height: 1.05;
+}
+
+.intro-sub{
+  margin: 0 0 16px;
+  color: rgba(246,247,251,0.78);
+}
+
+.progress{
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.bar{
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,77,109,0.95), rgba(255,211,106,0.95));
+  transition: width .12s linear;
+}
+
+.skip{
+  margin-top: 14px;
+  background: rgba(255,255,255,0.10);
+  color: rgba(246,247,251,0.92);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  padding: 10px 14px;
+}
+
+/* Đèn lồng đơn giản */
+.lanterns{
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.lantern{
+  width: 26px;
+  height: 34px;
+  border-radius: 10px 10px 14px 14px;
+  background: linear-gradient(180deg, rgba(255,77,109,1), rgba(255,159,67,1));
+  box-shadow: 0 10px 24px rgba(255,77,109,0.18);
+  position: relative;
+  transform-origin: top center;
+  animation: sway 1.8s ease-in-out infinite;
+}
+
+.lantern:nth-child(2){ animation-delay: .2s; }
+.lantern:nth-child(3){ animation-delay: .4s; }
+
+.lantern::before{
+  content:"";
+  position:absolute;
+  top:-8px; left:50%;
+  width: 8px; height: 8px;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  background: rgba(255,211,106,0.95);
+}
+.lantern::after{
+  content:"";
+  position:absolute;
+  bottom:-10px; left:50%;
+  width: 2px; height: 10px;
+  transform: translateX(-50%);
+  background: rgba(255,211,106,0.8);
+}
+
+@keyframes sway{
+  0%,100%{ transform: rotate(-6deg); }
+  50%{ transform: rotate(6deg); }
+}
+
+/* Ẩn app lúc đầu, rồi hiện mượt */
+.app-hidden{
+  opacity: 0;
+  transform: translateY(10px) scale(0.99);
+  pointer-events: none;
+}
+.app-show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition: opacity .7s ease, transform .7s ease;
+}
+
