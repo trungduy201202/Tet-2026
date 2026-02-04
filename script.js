@@ -1,49 +1,65 @@
-console.log("script loaded");
-
-// ===== INTRO TRANSITION (FIX) =====
+// ===== INTRO: CLICK -> COUNTDOWN 10..0 -> TRANSITION =====
 document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro");
   const app = document.getElementById("app");
-  const introBar = document.getElementById("introBar");
   const skipIntro = document.getElementById("skipIntro");
+  const startTet = document.getElementById("startTet");
+  const countBig = document.getElementById("countBig");
 
-  // Nếu thiếu element nào đó thì bỏ qua intro để khỏi đứng trang
-  if (!intro || !app || !introBar || !skipIntro) {
-    console.warn("Intro elements missing. Check id: intro, app, introBar, skipIntro");
+  if (!intro || !app || !skipIntro || !startTet || !countBig) {
+    console.warn("Missing intro elements. Check ids: intro, app, skipIntro, startTet, countBig");
     return;
   }
 
   let introDone = false;
+  let counting = false;
 
   function finishIntro() {
     if (introDone) return;
     introDone = true;
 
-    // Hiệu ứng “nổ” nhẹ khi vào trang (nếu burst tồn tại)
-    if (typeof burst === "function") burst(140);
+    if (typeof burst === "function") burst(160);
 
     intro.classList.add("intro-hide");
     app.classList.remove("app-hidden");
     app.classList.add("app-show");
-
     setTimeout(() => { intro.style.display = "none"; }, 650);
   }
 
   skipIntro.addEventListener("click", finishIntro);
 
-  // chạy progress ~ 3.0s rồi tự vào
-  let p = 0;
-  const introTimer = setInterval(() => {
-    p += 4;
-    if (p > 100) p = 100;
-    introBar.style.width = p + "%";
+  startTet.addEventListener("click", () => {
+    if (counting) return;
+    counting = true;
 
-    if (p === 100) {
-      clearInterval(introTimer);
-      finishIntro();
-    }
-  }, 120);
+    // khóa nút để khỏi bấm nhiều lần
+    startTet.classList.add("btn-disabled");
+    skipIntro.classList.add("btn-disabled");
+
+    let n = 10;
+    countBig.textContent = n;
+    countBig.classList.add("count-show");
+
+    const timer = setInterval(() => {
+      n -= 1;
+
+      // “nhấp nháy” nhẹ mỗi lần đổi số
+      countBig.classList.remove("count-show");
+      // trick để restart animation/transition
+      void countBig.offsetWidth;
+      countBig.classList.add("count-show");
+
+      countBig.textContent = n;
+
+      if (n <= 0) {
+        clearInterval(timer);
+        // đợi 1 chút cho số 0 hiện rõ rồi chuyển
+        setTimeout(finishIntro, 500);
+      }
+    }, 900);
+  });
 });
+
 
 
 
