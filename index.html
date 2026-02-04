@@ -9,31 +9,40 @@
 <body>
   <canvas id="fx"></canvas>
 
-  <main class="card" role="main" aria-live="polite">
+  <!-- INTRO / CHUYỂN CẢNH -->
+  <section id="intro" class="intro">
+    <div class="intro-inner">
+      <div class="lanterns" aria-hidden="true">
+        <span class="lantern"></span>
+        <span class="lantern"></span>
+        <span class="lantern"></span>
+      </div>
+
+      <h1 class="intro-title">Đón Tết 2026 ✨</h1>
+      <p class="intro-sub">Chuẩn bị một chút “pháo hoa” rồi mình vào nha…</p>
+
+      <div class="progress" aria-hidden="true">
+        <div class="bar" id="introBar"></div>
+      </div>
+
+      <button id="skipIntro" class="skip">Bỏ qua</button>
+    </div>
+  </section>
+
+  <!-- WEBSITE CHÍNH -->
+  <main id="app" class="card app-hidden" role="main" aria-live="polite">
     <div class="badge">TẾT 2026</div>
 
     <h1>Chúc Mừng Năm Mới 🎉</h1>
     <p class="subtitle">
-      Chúc bạn một năm <b>Bình an</b> – <b>May mắn</b> – <b>Học giỏi/Thăng tiến</b> – <b>Luôn vui</b>!
+      Chúc bạn một năm <b>Bình an</b> – <b>May mắn</b> – <b>Luôn vui</b>!
     </p>
 
     <section class="countdown" aria-label="Đếm ngược đến Tết">
-      <div class="time">
-        <div class="num" id="d">--</div>
-        <div class="label">Ngày</div>
-      </div>
-      <div class="time">
-        <div class="num" id="h">--</div>
-        <div class="label">Giờ</div>
-      </div>
-      <div class="time">
-        <div class="num" id="m">--</div>
-        <div class="label">Phút</div>
-      </div>
-      <div class="time">
-        <div class="num" id="s">--</div>
-        <div class="label">Giây</div>
-      </div>
+      <div class="time"><div class="num" id="d">--</div><div class="label">Ngày</div></div>
+      <div class="time"><div class="num" id="h">--</div><div class="label">Giờ</div></div>
+      <div class="time"><div class="num" id="m">--</div><div class="label">Phút</div></div>
+      <div class="time"><div class="num" id="s">--</div><div class="label">Giây</div></div>
     </section>
 
     <div class="controls">
@@ -42,17 +51,14 @@
     </div>
 
     <p class="message" id="message"></p>
-
-    <footer>
-      <span>Made with ❤️</span>
-    </footer>
+    <footer><span>Made with ❤️</span></footer>
   </main>
 
-  <!-- Nhạc nền (bạn có thể thay link mp3 của bạn) -->
   <audio id="music" preload="auto" loop>
     <source src="music.mp3" type="audio/mpeg" />
   </audio>
 
   <script src="script.js"></script>
 </body>
+
 </html>
