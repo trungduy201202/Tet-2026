@@ -1,39 +1,48 @@
-// ===== INTRO TRANSITION =====
-const intro = document.getElementById("intro");
-const app = document.getElementById("app");
-const introBar = document.getElementById("introBar");
-const skipIntro = document.getElementById("skipIntro");
+// ===== INTRO TRANSITION (FIX) =====
+document.addEventListener("DOMContentLoaded", () => {
+  const intro = document.getElementById("intro");
+  const app = document.getElementById("app");
+  const introBar = document.getElementById("introBar");
+  const skipIntro = document.getElementById("skipIntro");
 
-let introDone = false;
-
-function finishIntro() {
-  if (introDone) return;
-  introDone = true;
-
-  // Hiệu ứng “nổ” nhẹ khi vào trang
-  if (typeof burst === "function") burst(140);
-
-  intro.classList.add("intro-hide");
-  app.classList.remove("app-hidden");
-  app.classList.add("app-show");
-
-  // sau khi fade xong thì ẩn hẳn khỏi DOM flow
-  setTimeout(() => { intro.style.display = "none"; }, 650);
-}
-
-skipIntro.addEventListener("click", finishIntro);
-
-// chạy progress ~ 3.2s rồi tự vào
-let p = 0;
-const introTimer = setInterval(() => {
-  p += 4; // tốc độ
-  if (p > 100) p = 100;
-  introBar.style.width = p + "%";
-  if (p === 100) {
-    clearInterval(introTimer);
-    finishIntro();
+  // Nếu thiếu element nào đó thì bỏ qua intro để khỏi đứng trang
+  if (!intro || !app || !introBar || !skipIntro) {
+    console.warn("Intro elements missing. Check id: intro, app, introBar, skipIntro");
+    return;
   }
-}, 120);
+
+  let introDone = false;
+
+  function finishIntro() {
+    if (introDone) return;
+    introDone = true;
+
+    // Hiệu ứng “nổ” nhẹ khi vào trang (nếu burst tồn tại)
+    if (typeof burst === "function") burst(140);
+
+    intro.classList.add("intro-hide");
+    app.classList.remove("app-hidden");
+    app.classList.add("app-show");
+
+    setTimeout(() => { intro.style.display = "none"; }, 650);
+  }
+
+  skipIntro.addEventListener("click", finishIntro);
+
+  // chạy progress ~ 3.0s rồi tự vào
+  let p = 0;
+  const introTimer = setInterval(() => {
+    p += 4;
+    if (p > 100) p = 100;
+    introBar.style.width = p + "%";
+
+    if (p === 100) {
+      clearInterval(introTimer);
+      finishIntro();
+    }
+  }, 120);
+});
+
 
 
 
