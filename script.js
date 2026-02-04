@@ -1,3 +1,5 @@
+console.log("script loaded");
+
 // ===== INTRO TRANSITION (FIX) =====
 document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro");
