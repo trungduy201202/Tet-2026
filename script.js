@@ -1,13 +1,17 @@
-// ===== INTRO: CLICK -> COUNTDOWN 10..0 -> TRANSITION =====
+// ===== INTRO: CLICK -> COUNTDOWN 10..0 -> TRANSITION (SAFE) =====
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("Intro script loaded ✅");
+
   const intro = document.getElementById("intro");
   const app = document.getElementById("app");
   const skipIntro = document.getElementById("skipIntro");
   const startTet = document.getElementById("startTet");
   const countBig = document.getElementById("countBig");
 
+  console.log({ intro, app, skipIntro, startTet, countBig });
+
   if (!intro || !app || !skipIntro || !startTet || !countBig) {
-    console.warn("Missing intro elements. Check ids: intro, app, skipIntro, startTet, countBig");
+    alert("Thiếu element intro/app/startTet/countBig. Kiểm tra lại id trong index.html nhé!");
     return;
   }
 
@@ -18,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (introDone) return;
     introDone = true;
 
-    if (typeof burst === "function") burst(160);
+    // burst có thì nổ, không có cũng không sao
+    try { if (typeof burst === "function") burst(160); } catch (e) {}
 
     intro.classList.add("intro-hide");
     app.classList.remove("app-hidden");
@@ -29,23 +34,22 @@ document.addEventListener("DOMContentLoaded", () => {
   skipIntro.addEventListener("click", finishIntro);
 
   startTet.addEventListener("click", () => {
+    console.log("Start button clicked ✅");
     if (counting) return;
     counting = true;
 
-    // khóa nút để khỏi bấm nhiều lần
-    startTet.classList.add("btn-disabled");
-    skipIntro.classList.add("btn-disabled");
+    startTet.disabled = true;
+    skipIntro.disabled = true;
 
     let n = 10;
     countBig.textContent = n;
     countBig.classList.add("count-show");
 
     const timer = setInterval(() => {
-      n -= 1;
+      n--;
 
-      // “nhấp nháy” nhẹ mỗi lần đổi số
+      // restart transition để nhấp nháy
       countBig.classList.remove("count-show");
-      // trick để restart animation/transition
       void countBig.offsetWidth;
       countBig.classList.add("count-show");
 
@@ -53,12 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (n <= 0) {
         clearInterval(timer);
-        // đợi 1 chút cho số 0 hiện rõ rồi chuyển
         setTimeout(finishIntro, 500);
       }
     }, 900);
   });
 });
+
 
 
 
