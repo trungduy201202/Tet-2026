@@ -1,3 +1,43 @@
+// ===== INTRO TRANSITION =====
+const intro = document.getElementById("intro");
+const app = document.getElementById("app");
+const introBar = document.getElementById("introBar");
+const skipIntro = document.getElementById("skipIntro");
+
+let introDone = false;
+
+function finishIntro() {
+  if (introDone) return;
+  introDone = true;
+
+  // Hiệu ứng “nổ” nhẹ khi vào trang
+  if (typeof burst === "function") burst(140);
+
+  intro.classList.add("intro-hide");
+  app.classList.remove("app-hidden");
+  app.classList.add("app-show");
+
+  // sau khi fade xong thì ẩn hẳn khỏi DOM flow
+  setTimeout(() => { intro.style.display = "none"; }, 650);
+}
+
+skipIntro.addEventListener("click", finishIntro);
+
+// chạy progress ~ 3.2s rồi tự vào
+let p = 0;
+const introTimer = setInterval(() => {
+  p += 4; // tốc độ
+  if (p > 100) p = 100;
+  introBar.style.width = p + "%";
+  if (p === 100) {
+    clearInterval(introTimer);
+    finishIntro();
+  }
+}, 120);
+
+
+
+
 // ====== Đếm ngược ======
 // Tết âm lịch mỗi năm khác nhau. Mình đặt tạm mốc dương lịch: 01/01/2026 00:00.
 // Nếu bạn muốn đúng "Tết Nguyên Đán 2026", nói mình biết bạn muốn theo âm lịch,
