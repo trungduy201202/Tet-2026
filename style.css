@@ -266,3 +266,41 @@ footer{
   transition: opacity .7s ease, transform .7s ease;
 }
 
+
+.count-big{
+  margin: 10px 0 6px;
+  font-size: clamp(64px, 10vw, 120px);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: rgba(255,211,106,0.98);
+  text-shadow: 0 18px 60px rgba(255,211,106,0.15);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity .25s ease, transform .25s ease;
+  user-select: none;
+}
+
+.count-show{
+  opacity: 1;
+  transform: scale(1);
+}
+
+.intro-actions{
+  display:flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.primary.big{
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 16px;
+}
+
+.btn-disabled{
+  opacity: 0.65;
+  pointer-events: none;
+}
+
