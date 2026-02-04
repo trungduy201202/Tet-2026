@@ -10,24 +10,24 @@
   <canvas id="fx"></canvas>
 
   <!-- INTRO / CHUYỂN CẢNH -->
-  <section id="intro" class="intro">
-    <div class="intro-inner">
-      <div class="lanterns" aria-hidden="true">
-        <span class="lantern"></span>
-        <span class="lantern"></span>
-        <span class="lantern"></span>
-      </div>
-
-      <h1 class="intro-title">Đón Tết 2026 ✨</h1>
-      <p class="intro-sub">Chuẩn bị một chút “pháo hoa” rồi mình vào nha…</p>
-
-      <div class="progress" aria-hidden="true">
-        <div class="bar" id="introBar"></div>
-      </div>
-
-      <button id="skipIntro" class="skip">Bỏ qua</button>
+<section id="intro" class="intro">
+  <div class="intro-inner">
+    <div class="lanterns" aria-hidden="true">
+      <span class="lantern"></span>
+      <span class="lantern"></span>
+      <span class="lantern"></span>
     </div>
-  </section>
+
+    <h1 class="intro-title">Đón Tết 2026 ✨</h1>
+    <p class="intro-sub">Bấm nút bên dưới để bắt đầu đếm ngược nha!</p>
+
+    <div id="countBig" class="count-big" aria-hidden="true">10</div>
+
+    <div class="intro-actions">
+      <button id="startTet" class="primary big">Đón Tết Nào</button>
+    </div>
+  </div>
+</section>
 
   <!-- WEBSITE CHÍNH -->
   <main id="app" class="card app-hidden" role="main" aria-live="polite">
